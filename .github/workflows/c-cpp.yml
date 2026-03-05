@@ -25,9 +25,14 @@ jobs:
         mv linux-5.15 linux-5.15-clean
         git clone "https://github.com/lwfinger/rtl8188eu.git"
     - name: head kernel
-      run: 
-
-
+      run: |
+        cp -s $GITHUB_WORKSPACE/config ~/linux-5.15-clean/
+        mv ~/linux-5.15-clean/config ~/linux-5.15-clean/.config
+        linux-5.15-clean/script/config --set-str LOCALVERSION "-jsbsbxjxh66+"
+        cd ~/linux-5.15-clean
+        make ARCH=arm64 CC=gcc-9 olddefconfig
+        make ARCH=arm64 CC=gcc-9 modules_prepare
+        cd ~
 
 
 
