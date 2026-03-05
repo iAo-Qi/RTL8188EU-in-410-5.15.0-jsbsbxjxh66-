@@ -16,7 +16,7 @@ jobs:
     - name: update
       run: |
         sudo apt update
-        sudo apt install -y gcc-9 g++-9 make cmake wget gcc-aarch64-linux-gnu bc flex bison git libssl-dev
+        sudo apt install -y gcc-9 g++-9 make tree cmake wget gcc-aarch64-linux-gnu bc flex bison git libssl-dev
     - name: download And git
       run: |
         cd ~
@@ -24,11 +24,14 @@ jobs:
         tar -xvf ./linux-5.15.tar.xz
         mv linux-5.15 linux-5.15-clean
         git clone "https://github.com/lwfinger/rtl8188eu.git"
+    - name: tree
+      run: tree /root -L 5
     - name: head kernel
       run: |
+        cd ~
         cp -s $GITHUB_WORKSPACE/config ~/linux-5.15-clean/
         mv ~/linux-5.15-clean/config ~/linux-5.15-clean/.config
-        linux-5.15-clean/script/config --set-str LOCALVERSION "-jsbsbxjxh66+"
+        linux-5.15-clean/scripts/config --set-str LOCALVERSION "-jsbsbxjxh66+"
         cd ~/linux-5.15-clean
         make ARCH=arm64 CC=gcc-9 olddefconfig
         make ARCH=arm64 CC=gcc-9 modules_prepare
