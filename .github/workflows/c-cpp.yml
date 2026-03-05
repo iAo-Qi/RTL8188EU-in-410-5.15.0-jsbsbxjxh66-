@@ -36,7 +36,18 @@ jobs:
         make ARCH=arm64 CC=gcc-9 olddefconfig
         make ARCH=arm64 CC=gcc-9 modules_prepare
         cd ~
-
+    - name: Build rtl8188eu
+      run: |
+        cd ~/rtl8188eu
+        make ARCH=arm64 CC=gcc-9
+    - name: tree2
+      run: tree ~/ -L 5
+      
+    - name: Upload artifact
+      uses: actions/checkout@v4
+      with:
+        name: rtl8188eu-ko
+        path: rtl8188eu/8188eu.ko
 
 
 
