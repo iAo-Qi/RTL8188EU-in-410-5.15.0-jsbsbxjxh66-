@@ -29,9 +29,9 @@ jobs:
     - name: head kernel
       run: |
         cd ~
-        cp -s $GITHUB_WORKSPACE/config ~/linux-5.15-clean/
-        cp -s $GITHUB_WORKSPACE/Module.symvers ~/linux-5.15-clean/
-        mv ~/linux-5.15-clean/config ~/linux-5.15-clean/.config
+        #cp -s $GITHUB_WORKSPACE/config ~/linux-5.15-clean/
+        #cp -s $GITHUB_WORKSPACE/Module.symvers ~/linux-5.15-clean/
+        #mv ~/linux-5.15-clean/config ~/linux-5.15-clean/.config
         cd ~/linux-5.15-clean
         scripts/config --disable LOCALVERSION_AUTO
         scripts/config --set-str LOCALVERSION "-jsbsbxjxh66+"
