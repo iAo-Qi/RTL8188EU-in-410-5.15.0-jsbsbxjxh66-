@@ -26,8 +26,6 @@ jobs:
         tar -zxvf ./kernel-jsbsbxjxh66.tar.gz
         mv kernel-jsbsbxjxh66 linux-5.15-clean  
         git clone "https://github.com/lwfinger/rtl8188eu.git"
-    - name: tree
-      run: tree ~/ -L 5
     - name: head kernel
       run: |
         cd ~
