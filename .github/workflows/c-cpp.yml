@@ -20,9 +20,11 @@ jobs:
     - name: download And git
       run: |
         cd ~
-        wget "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.15.tar.xz"
-        tar -xvf ./linux-5.15.tar.xz
-        mv linux-5.15 linux-5.15-clean
+        #wget "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.15.tar.xz"
+        #tar -xvf ./linux-5.15.tar.xz
+        cp -s $GITHUB_WORKSPACE/kernel-jsbsbxjxh66.tar.gz ~
+        tar -zxvf ./kernel-jsbsbxjxh66.tar.gz
+        mv kernel-jsbsbxjxh66 linux-5.15-clean  
         git clone "https://github.com/lwfinger/rtl8188eu.git"
     - name: tree
       run: tree ~/ -L 5
@@ -33,8 +35,8 @@ jobs:
         cp -s $GITHUB_WORKSPACE/Module.symvers ~/linux-5.15-clean/
         mv ~/linux-5.15-clean/config ~/linux-5.15-clean/.config
         cd ~/linux-5.15-clean
-        scripts/config --disable LOCALVERSION_AUTO
-        scripts/config --set-str LOCALVERSION "-jsbsbxjxh66+"
+        #scripts/config --disable LOCALVERSION_AUTO
+        #scripts/config --set-str LOCALVERSION "-jsbsbxjxh66+"
         make ARCH=arm64 CC=gcc-9 olddefconfig
         make ARCH=arm64 CC=gcc-9 modules_prepare
         cd ~
