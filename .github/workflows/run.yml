@@ -1,0 +1,56 @@
+name: Build RTL8188EU for ARM64
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-22.04-arm
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: update
+      run: |
+        sudo apt update
+        sudo apt install -y gcc-9 g++-9 make tree cmake wget gcc-aarch64-linux-gnu bc flex bison git libssl-dev
+    - name: download And git
+      run: |
+        cd ~
+        #wget "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.15.tar.xz"
+        #tar -xvf ./linux-5.15.tar.xz
+        cp -s $GITHUB_WORKSPACE/kernel-jsbsbxjxh66.tar.gz ~
+        tar -zxvf ./kernel-jsbsbxjxh66.tar.gz
+        mv kernel-jsbsbxjxh66 linux-5.15-clean  
+        git clone "https://github.com/lwfinger/rtl8188eu.git"
+    - name: head kernel
+      run: |
+        cd ~
+        cp -s $GITHUB_WORKSPACE/config ~/linux-5.15-clean/
+        cp -s $GITHUB_WORKSPACE/Module.symvers ~/linux-5.15-clean/
+        mv ~/linux-5.15-clean/config ~/linux-5.15-clean/.config
+        cd ~/linux-5.15-clean
+        #scripts/config --disable LOCALVERSION_AUTO
+        #scripts/config --set-str LOCALVERSION "-jsbsbxjxh66+"
+        make ARCH=arm64 CC=gcc-9 olddefconfig
+        make ARCH=arm64 CC=gcc-9 modules_prepare
+        cd ~
+    - name: Build rtl8188eu
+      run: |
+        make ARCH=arm64 CC=gcc-9 -C ~/linux-5.15-clean M=~/rtl8188eu modules
+    - name: tree2
+      run: tree ~/ -L 5
+    - name: rtl8188eu info
+      run: modinfo ~/rtl8188eu/8188eu.ko | grep vermagic
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: rtl8188eu-ko
+        path: ~/rtl8188eu/
+
+
+
+    
