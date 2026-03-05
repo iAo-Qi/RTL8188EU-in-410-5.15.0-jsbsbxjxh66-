@@ -33,16 +33,14 @@ jobs:
         cp -s $GITHUB_WORKSPACE/Module.symvers ~/linux-5.15-clean/
         mv ~/linux-5.15-clean/config ~/linux-5.15-clean/.config
         cd ~/linux-5.15-clean
-        #scripts/config --disable LOCALVERSION_AUTO
-        #scripts/config --set-str LOCALVERSION "-jsbsbxjxh66+"
+        scripts/config --disable LOCALVERSION_AUTO
+        scripts/config --set-str LOCALVERSION "-jsbsbxjxh66+"
         make ARCH=arm64 CC=gcc-9 olddefconfig
         make ARCH=arm64 CC=gcc-9 modules_prepare
         cd ~
     - name: Build rtl8188eu
       run: |
         make ARCH=arm64 CC=gcc-9 -C ~/linux-5.15-clean M=~/rtl8188eu modules
-    - name: tree2
-      run: tree ~/ -L 5
     - name: rtl8188eu info
       run: modinfo ~/rtl8188eu/8188eu.ko | grep vermagic
     - name: Upload artifact
