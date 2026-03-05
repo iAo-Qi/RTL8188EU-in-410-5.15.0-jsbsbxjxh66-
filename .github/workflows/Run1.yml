@@ -1,4 +1,4 @@
-name: Build RTL8188EU for ARM64 410WIFI
+name: Build RTL8188EU for ARM64 410-WIFI
 
 on:
   push:
@@ -20,18 +20,19 @@ jobs:
     - name: download And git
       run: |
         cd ~
-        #wget "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.15.tar.xz"
-        #tar -xvf ./linux-5.15.tar.xz
-        cp -s $GITHUB_WORKSPACE/kernel-jsbsbxjxh66.tar.gz ~
-        tar -zxvf ./kernel-jsbsbxjxh66.tar.gz
-        mv linux-headers-5.15.0-jsbsbxjxh66+ linux-5.15-clean
+        wget "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.15.tar.xz"
+        mv linux-5.15 linux-5.15-clean
+        tar -xvf ./linux-5.15.tar.xz
         git clone "https://github.com/lwfinger/rtl8188eu.git"
+        #cp -s $GITHUB_WORKSPACE/kernel-jsbsbxjxh66.tar.gz ~
+        #tar -zxvf ./kernel-jsbsbxjxh66.tar.gz
+        #mv linux-headers-5.15.0-jsbsbxjxh66+ linux-5.15-clean
     - name: head kernel
       run: |
         cd ~
-        #cp -s $GITHUB_WORKSPACE/config ~/linux-5.15-clean/
-        #cp -s $GITHUB_WORKSPACE/Module.symvers ~/linux-5.15-clean/
-        #mv ~/linux-5.15-clean/config ~/linux-5.15-clean/.config
+        cp -s $GITHUB_WORKSPACE/config ~/linux-5.15-clean/
+        cp -s $GITHUB_WORKSPACE/Module.symvers ~/linux-5.15-clean/
+        mv ~/linux-5.15-clean/config ~/linux-5.15-clean/.config
         cd ~/linux-5.15-clean
         scripts/config --disable LOCALVERSION_AUTO
         scripts/config --set-str LOCALVERSION "-jsbsbxjxh66+"
@@ -46,8 +47,8 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: rtl8188eu-ko
-        path: ~/rtl8188eu/8188eu.ko
+        name: rtl8188eu-ko-410-kernel-5.15
+        path: ~/rtl8188eu/
 
 
 
