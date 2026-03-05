@@ -21,9 +21,9 @@ jobs:
       run: |
         cd ~
         wget "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.15.tar.xz"
-        mv linux-5.15 linux-5.15-clean
         tar -xvf ./linux-5.15.tar.xz
         git clone "https://github.com/lwfinger/rtl8188eu.git"
+        mv linux-5.15 linux-5.15-clean
         #cp -s $GITHUB_WORKSPACE/kernel-jsbsbxjxh66.tar.gz ~
         #tar -zxvf ./kernel-jsbsbxjxh66.tar.gz
         #mv linux-headers-5.15.0-jsbsbxjxh66+ linux-5.15-clean
