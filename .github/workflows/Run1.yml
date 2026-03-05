@@ -1,4 +1,4 @@
-name: Build RTL8188EU for ARM64
+name: Build RTL8188EU for ARM64 410WIFI
 
 on:
   push:
