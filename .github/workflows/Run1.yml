@@ -24,7 +24,7 @@ jobs:
         #tar -xvf ./linux-5.15.tar.xz
         cp -s $GITHUB_WORKSPACE/kernel-jsbsbxjxh66.tar.gz ~
         tar -zxvf ./kernel-jsbsbxjxh66.tar.gz
-        mv kernel-jsbsbxjxh66 linux-5.15-clean
+        mv linux-headers-5.15.0-jsbsbxjxh66+ linux-5.15-clean
         git clone "https://github.com/lwfinger/rtl8188eu.git"
     - name: head kernel
       run: |
