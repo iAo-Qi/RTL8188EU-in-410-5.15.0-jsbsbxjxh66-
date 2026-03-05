@@ -32,6 +32,8 @@ jobs:
         cp -s $GITHUB_WORKSPACE/config ~/linux-5.15-clean/
         cp -s $GITHUB_WORKSPACE/Module.symvers ~/linux-5.15-clean/
         mv ~/linux-5.15-clean/config ~/linux-5.15-clean/.config
+        sed -i 's/CONFIG_LOCALVERSION_AUTO=y/CONFIG_LOCALVERSION_AUTO=n/' .config
+        sed -i 's/CONFIG_LOCALVERSION=.*/CONFIG_LOCALVERSION="-jsbsbxjxh66+"/' .config
         linux-5.15-clean/scripts/config --set-str LOCALVERSION "-jsbsbxjxh66+"
         cd ~/linux-5.15-clean
         make ARCH=arm64 CC=gcc-9 olddefconfig
