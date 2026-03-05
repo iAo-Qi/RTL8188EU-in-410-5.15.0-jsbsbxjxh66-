@@ -25,7 +25,7 @@ jobs:
         mv linux-5.15 linux-5.15-clean
         git clone "https://github.com/lwfinger/rtl8188eu.git"
     - name: tree
-      run: tree /root -L 5
+      run: tree ~/ -L 5
     - name: head kernel
       run: |
         cd ~
