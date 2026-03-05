@@ -38,7 +38,7 @@ jobs:
         cd ~
     - name: Build rtl8188eu
       run: |
-        make ARCH=arm64 CC=gcc-9 -C linux-5.15-clean M=~/rtl8188eu modules
+        make ARCH=arm64 CC=gcc-9 -C ~/linux-5.15-clean M=~/rtl8188eu modules
     - name: tree2
       run: tree ~/ -L 5
       
@@ -46,7 +46,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: rtl8188eu-ko
-        path: rtl8188eu/
+        path: ~/rtl8188eu/
 
 
 
