@@ -1,0 +1,29 @@
+name: Build RTL8188EU for ARM64
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-20.04-arm
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: update
+      run: apt update | apt install -y gcc make cmake wget gcc-aarch64-linux-gnu bc flex bison git libssl-dev
+    - name: download And git
+      run: cd ~ | wget "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.15.tar.xz" | git clone "https://github.com/lwfinger/rtl8188eu.git"
+
+    
+    - name: configure
+      run: ./configure
+    - name: make
+      run: make
+    - name: make check
+      run: make check
+    - name: make distcheck
+      run: make distcheck
