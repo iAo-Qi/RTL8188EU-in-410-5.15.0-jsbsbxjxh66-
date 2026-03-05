@@ -42,7 +42,8 @@ jobs:
         make ARCH=arm64 CC=gcc-9 -C ~/linux-5.15-clean M=~/rtl8188eu modules
     - name: tree2
       run: tree ~/ -L 5
-      
+    - name: rtl8188eu info
+      run: modinfo ~/rtl8188eu/8188eu.ko | grep vermagic
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
